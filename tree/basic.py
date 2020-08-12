@@ -4,6 +4,9 @@ class Node:
         self.left = left
         self.right = right
 
+    def __str__(self):
+        return "{}".format(self.data)
+
 
 def build_tree():
     a = Node(1)
@@ -27,9 +30,13 @@ def build_tree():
 tree = build_tree()
 
 
+def visit(_node):
+    print(_node)
+
+
 def pre_order(_tree: Node):
     if _tree is not None:
-        print(_tree.data)
+        visit(_tree)
         pre_order(_tree.left)
         pre_order(_tree.right)
 
@@ -37,7 +44,7 @@ def pre_order(_tree: Node):
 def in_order(_tree: Node):
     if _tree is not None:
         in_order(_tree.left)
-        print(_tree.data)
+        visit(_tree)
         in_order(_tree.right)
 
 
@@ -45,7 +52,7 @@ def post_order(_tree: Node):
     if _tree is not None:
         post_order(_tree.left)
         post_order(_tree.right)
-        print(_tree.data)
+        visit(_tree)
 
 
 print("pre_order")

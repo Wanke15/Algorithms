@@ -30,37 +30,44 @@ def build_tree():
 tree = build_tree()
 
 
-def visit(_node):
-    print(_node)
+def visit(_node, _res):
+    _res.append(_node)
 
 
-def pre_order(_tree: Node):
+def pre_order(_tree: Node, res: list):
     if _tree is not None:
-        visit(_tree)
-        pre_order(_tree.left)
-        pre_order(_tree.right)
+        visit(_tree, res)
+        pre_order(_tree.left, res)
+        pre_order(_tree.right, res)
 
 
-def in_order(_tree: Node):
+def in_order(_tree: Node, res: list):
     if _tree is not None:
-        in_order(_tree.left)
-        visit(_tree)
-        in_order(_tree.right)
+        in_order(_tree.left, res)
+        visit(_tree, res)
+        in_order(_tree.right, res)
 
 
-def post_order(_tree: Node):
+def post_order(_tree: Node, res: list):
     if _tree is not None:
-        post_order(_tree.left)
-        post_order(_tree.right)
-        visit(_tree)
+        post_order(_tree.left, res)
+        post_order(_tree.right, res)
+        visit(_tree, res)
 
 
 print("pre_order")
-pre_order(tree)
+pre_order_res = []
+pre_order(tree, pre_order_res)
+[print(_node) for _node in pre_order_res]
 
 
 print("in_order")
-in_order(tree)
+in_order_res = []
+in_order(tree, in_order_res)
+[print(_node) for _node in in_order_res]
+
 
 print("post_order")
-post_order(tree)
+post_order_res = []
+post_order(tree, post_order_res)
+[print(_node) for _node in post_order_res]

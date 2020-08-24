@@ -177,3 +177,29 @@ print(min_depth(tree))
 
 print(min_depth(Node(data=1)))
 
+
+def sorted_array_to_BST(nums) -> Node:
+    if not nums:
+        return None
+    root_pos = int(len(nums) / 2)
+
+    left_arr = nums[:root_pos]
+    right_arr = nums[root_pos + 1:]
+
+    root = Node(nums[root_pos])
+
+    left_tree = sorted_array_to_BST(left_arr)
+    right_tree = sorted_array_to_BST(right_arr)
+
+    root.left = left_tree
+    root.right = right_tree
+
+    return root
+
+
+print('Sorted array to SBT: ')
+test_nums = [-10, -3, 0, 5, 9]
+new_tree = sorted_arra_t_BST(test_nums)
+res = []
+mid_order(new_tree, res)
+[print(_) for _ in res]

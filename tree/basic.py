@@ -60,12 +60,10 @@ pre_order_res = []
 pre_order(tree, pre_order_res)
 [print(_node) for _node in pre_order_res]
 
-
 print("in_order: ")
 mid_order_res = []
 mid_order(tree, mid_order_res)
 [print(_node) for _node in mid_order_res]
-
 
 print("post_order: ")
 post_order_res = []
@@ -89,8 +87,8 @@ def reconstruct_from_pre_and_mid(pre_order_seq: list, mid_order_seq: list):
             break
 
     # 确定两种遍历的左右子树，递归
-    left = reconstruct_from_pre_and_mid(pre_order_seq[1: root_pos_in_mid+1], mid_order_seq[:root_pos_in_mid])
-    right = reconstruct_from_pre_and_mid(pre_order_seq[root_pos_in_mid+1:], mid_order_seq[root_pos_in_mid+1:])
+    left = reconstruct_from_pre_and_mid(pre_order_seq[1: root_pos_in_mid + 1], mid_order_seq[:root_pos_in_mid])
+    right = reconstruct_from_pre_and_mid(pre_order_seq[root_pos_in_mid + 1:], mid_order_seq[root_pos_in_mid + 1:])
 
     root_node.left = left
     root_node.right = right
@@ -121,7 +119,7 @@ def reconstruct_from_post_and_mid(post_order_seq: list, mid_order_seq: list):
 
     # 确定两种遍历的左右子树，递归
     left = reconstruct_from_post_and_mid(post_order_seq[: root_pos_in_mid], mid_order_seq[:root_pos_in_mid])
-    right = reconstruct_from_post_and_mid(post_order_seq[root_pos_in_mid: -1], mid_order_seq[root_pos_in_mid+1:])
+    right = reconstruct_from_post_and_mid(post_order_seq[root_pos_in_mid: -1], mid_order_seq[root_pos_in_mid + 1:])
 
     root_node.left = left
     root_node.right = right
@@ -134,3 +132,48 @@ print(new_tree == tree)
 new_tree_pre_order_res = []
 pre_order(new_tree, new_tree_pre_order_res)
 [print(_node) for _node in new_tree_pre_order_res]
+
+
+def max_depth(root: Node):
+    if root is None:
+        return 0
+    left_height = max_depth(root.left)
+    right_height = max_depth(root.right)
+    _height = max(left_height, right_height) + 1
+    return _height
+
+
+print("Max height: ")
+print(max_depth(tree))
+
+import sys
+
+
+def min_depth(root: Node):
+    # 空树
+    if root is None:
+        return 0
+
+    # 确定叶子节点
+    if root.left is None and root.right is None:
+        return 1
+
+    left_height = sys.maxsize
+    right_height = sys.maxsize
+
+    # 如果左右子树不为空，则分别递归计算左右子树的最小深度
+    if root.left is not None:
+        left_height = min_depth(root.left)
+    if root.right is not None:
+        right_height = min_depth(root.right)
+
+    # 左右子树的最小深度加一表示考虑root
+    _height = min(left_height, right_height) + 1
+    return _height
+
+
+print("Min height: ")
+print(min_depth(tree))
+
+print(min_depth(Node(data=1)))
+

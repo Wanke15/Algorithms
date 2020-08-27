@@ -1,3 +1,5 @@
+from typing import List
+
 from tree.basic import TreeNode, tree
 
 
@@ -31,3 +33,40 @@ target_node.left = f
 
 print(getTargetCopy(tree, tree, target_node))
 # print(getTargetCopy(tree, tree, tree))
+
+
+from collections import defaultdict
+
+
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        routes = defaultdict(list)
+        for ticket in tickets:
+            routes[ticket[0]].append(ticket[1])
+
+        for route in routes:
+            routes[route] = sorted(routes[route], reverse=False)
+
+        print(routes)
+        # result = ["JFK"]
+        # while routes[result[-1]]:
+        #     for idx, port in enumerate(routes[result[-1]]):
+        #         if port in routes or idx == len(routes[result[-1]]) - 1:
+        #             hit = routes[result[-1]][idx]
+        #             del routes[result[-1]][idx]
+        #             result.append(hit)
+        #             break
+
+        result = []
+
+        def dfs(f):
+            while routes[f]:
+                dfs(routes[f].pop(0))
+            result.insert(0, f)
+
+        dfs('JFK')
+
+        return result
+
+
+print(Solution().findItinerary([["JFK", "KUL"], ["JFK", "NRT"], ["NRT", "JFK"]]))

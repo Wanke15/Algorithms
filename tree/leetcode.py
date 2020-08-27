@@ -70,3 +70,20 @@ class Solution:
 
 
 print(Solution().findItinerary([["JFK", "KUL"], ["JFK", "NRT"], ["NRT", "JFK"]]))
+
+
+def is_balanced(self, root: TreeNode) -> bool:
+    if root is None:
+        return True
+
+    def height(node):
+        if node is None:
+            return 0
+        else:
+            return max(height(node.left), height(node.right)) + 1
+
+    # 平衡二叉树判定条件的分解：节点的左右子树高度差不大于1且递归的左右子树也满足该条件
+    if abs(height(root.left) - height(root.right)) <= 1 and self.isBalanced(root.left) and self.isBalanced(root.right):
+        return True
+    else:
+        return False
